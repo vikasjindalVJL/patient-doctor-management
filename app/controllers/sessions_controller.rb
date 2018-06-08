@@ -1,3 +1,5 @@
+require 'digest/sha1'
+
 class SessionsController < ApplicationController
 
   skip_before_action :verify_login
@@ -5,7 +7,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.where(email: params[:session][:email].downcase, password: params[:session][:password]).first rescue nil
+    encrypted_password = Digest::SHA1.hexdigest(params[:session][:password]) rescue nil
+    user = User.where(email: params[:session][:email].downcase, encrypted_password: encrypted_password).first rescue nil
     if user
       log_in user
       redirect_to user
@@ -26,7 +29,8 @@ class SessionsController < ApplicationController
   end
 
   def new_user
-    @user = User.new(user_params)
+    encrypted_password= Digest::SHA1.hexdigest(user_params[:password])
+    @user = User.new(username: user_params[:username], encrypted_password: encrypted_password, type: user_params[:type], email: user_params[:email])
     begin
       if @user.save!
         session[:user_id] = @user.id

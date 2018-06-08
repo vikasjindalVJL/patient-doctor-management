@@ -1,24 +1,25 @@
-# README
+# Patient Doctor Management
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a management system where patient, doctor and pharmacist can create their profile.
+Patients have medical records associated with them. To access those records, doctors and pharmacists can request for records access from the patients and only after patient's approval, they can view the records.
 
-Things you may want to cover:
+## Getting Started
 
-* Ruby version
+### Prerequisites
 
-* System dependencies
+Configurations
+```
+Ruby version 2.5.0
+Rails version 5.1.6
+MongoDB shell version v3.4.10
+```
 
-* Configuration
+### Steps to install
 
-* Database creation
+After cloning the project
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Run following commands
+```
+bundle install
+rails s
+```

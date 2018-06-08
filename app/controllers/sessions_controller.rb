@@ -3,6 +3,7 @@ require 'digest/sha1'
 class SessionsController < ApplicationController
 
   skip_before_action :verify_login
+
   def login
   end
 
@@ -33,9 +34,7 @@ class SessionsController < ApplicationController
     @user = User.new(username: user_params[:username], encrypted_password: encrypted_password, type: user_params[:type], email: user_params[:email])
     begin
       if @user.save!
-        session[:user_id] = @user.id
-        logged_in?
-        redirect_to '/login'
+        redirect_to login_path
       end
     rescue
       render 'signup'

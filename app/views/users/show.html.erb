@@ -69,26 +69,20 @@
       <tr>
         <th class="field">Name</th>
         <th>Email</th>
+        <th>Role</th>
         <th>Status</th>
         <th colspan="1"></th>
       </tr>
       </thead>
 
       <tbody>
-      <% @doctors.each do |doctor| %>
+      <% @requestors.each do |requestor| %>
         <tr>
-          <td><%= doctor.username %></td>
-          <td><%= doctor.email %></td>
-          <td><%= link_to "Approve", users_approve_request_path({:user_id => @user.id.to_s, :requestor_id => doctor.id.to_s}), method: :put %></td>
-          <td><%= link_to "Reject", users_deny_request_path({:user_id => @user.id.to_s, :requestor_id => doctor.id.to_s}), method: :put %></td>
-        </tr>
-      <% end %>
-      <% @pharmacists.each do |pharmacist| %>
-        <tr>
-          <td><%= pharmacist.username %></td>
-          <td><%= pharmacist.email %></td>
-          <td><%= link_to "Approve", users_approve_request_path({:user_id => @user.id.to_s, :requestor_id => pharmacist.id.to_s}), method: :put %></td>
-          <td><%= link_to "Reject", users_deny_request_path({:user_id => @user.id.to_s, :requestor_id => pharmacist.id.to_s}), method: :put %></td>
+          <td><%= requestor.requestor.username %></td>
+          <td><%= requestor.requestor.email %></td>
+          <td><%= requestor.requestor.type.capitalize %></td>
+          <td><%= link_to "Approve", users_approve_request_path({:user_id => @user.id.to_s, :requestor_id => requestor.requestor.id.to_s}), method: :put %></td>
+          <td><%= link_to "Reject", users_deny_request_path({:user_id => @user.id.to_s, :requestor_id => requestor.requestor.id.to_s}), method: :put %></td>
         </tr>
       <% end %>
       </tbody>

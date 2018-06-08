@@ -3,13 +3,10 @@ class UsersController < ApplicationController
 
   def show
     if @user.type == "doctor" || @user.type == "pharmacist"
-    @patients_requested = RequestAccess.where(requestor_id: @user._id)
-    @patients_not_requested = User.where(:type => "patient", :_id.nin => @patients_requested.pluck(:grantor_id))
-
+      @patients_requested = RequestAccess.where(requestor_id: @user._id)
+      @patients_not_requested = User.where(:type => "patient", :_id.nin => @patients_requested.pluck(:grantor_id))
     elsif @user.type == "patient"
       @requestors = RequestAccess.where(grantor_id: @user._id, :status => "pending")
-      @doctors = User.where(:type => "doctor", :_id.in => @requestors.pluck(:requestor_id))
-      @pharmacists = User.where(:type => "pharmacist", :_id.in => @requestors.pluck(:requestor_id))
     end
   end
 
@@ -41,12 +38,10 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:username, :email, :type, :password)
     end

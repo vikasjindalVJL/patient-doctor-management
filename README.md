@@ -40,6 +40,16 @@ password: narayan123
 email: guru_prashad@gmail.com 
 password: guru123
 ```
+To Test Document view Functionality - 
+
+Use Accounts- 
+```
+email: guru_prashad@gmail.com 
+password: guru123
+
+email: sree_kumar@gmail.com 
+password: sree123
+```
 
 ### Functionalities 
 1. Common for all users

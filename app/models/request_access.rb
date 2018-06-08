@@ -1,5 +1,6 @@
 class RequestAccess
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   belongs_to :requestor, class_name: 'User'
   belongs_to :grantor, class_name: 'User'

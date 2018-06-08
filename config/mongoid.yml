@@ -159,9 +159,7 @@ test:
 production:
   clients:
     default:
-      database: pharmeasy_app_production
-      hosts:
-        - localhost:27017
+      uri: <%= ENV['MONGODB_URI'] %>
       options:
         read:
           mode: :primary

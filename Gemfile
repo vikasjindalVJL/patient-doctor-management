@@ -54,10 +54,7 @@ group :development do
 end
 
 group :production do
-  gem 'mongo','~>2.4.1'
-  gem 'mongoid','~>6.1.1'
-  gem 'bootstrap'
-  gem 'jquery-rails'
+  
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

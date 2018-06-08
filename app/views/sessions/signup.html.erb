@@ -1,0 +1,30 @@
+<div class="container">
+  <% provide(:title, "Sign Up") %>
+  <div style="margin: 30px 10px;"><h2 style="margin-left: 100px;">Sign Up</h2></div>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <%= form_for @user, :url => {:action =>'new_user'}, :html => {:method => "post"} do |f| %>
+
+        <%= f.label :name %><br>
+        <%= f.text_field :username, class: 'form-control', :required => true %>
+        <br/>
+        <%= f.label :email %><br>
+        <%= f.email_field :email, class: 'form-control', :required => true %>
+        <br/>
+        <%= f.label :password %><br>
+        <%= f.password_field :password, class: 'form-control', :required => true %>
+        <br/>
+        <%= f.label :Role %>
+        <%= f.select :type, ['patient', 'doctor', 'pharmacist'], class: 'form-control', :required => true %>
+        <br/>
+        <br/>
+        <%= f.submit 'Sign Up', :class => 'btn btn-primary btn-block' %>
+      <% end %>
+      <br/>
+      <div align="right">
+        <%= link_to 'Login here', login_path, class: "btn btn-link btn-sm" %>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

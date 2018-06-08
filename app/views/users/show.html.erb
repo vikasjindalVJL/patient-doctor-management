@@ -1,0 +1,97 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+
+  <div class="card">
+    <div class="card-header">
+      <h5 style="display: inline-block;">Profile Details</h5>
+      <span style="float: right; display: inline-block;"><a><%= link_to 'Logout', logout_path, method: :delete, class: "btn btn-danger btn-sm" %></a></span>
+
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Hello <%= @user.username.capitalize %>,</h5>
+      <br/>
+      <h4 class="card-text" style="text-decoration: underline">Basic Details: </h4>
+      <p class="card-text">Email: <%= @user.email %></p>
+      <p class="card-text">Role: <%= @user.type.capitalize %></p>
+
+    </div>
+  </div>
+
+  <br/><br/>
+
+  <% if ['doctor', 'pharmacist'].include? @user.type %>
+    <h3>Patients: </h3>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th colspan="1"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @patients_not_requested.each do |patient| %>
+        <tr>
+          <td><%= patient.username %></td>
+          <td><%= patient.email %></td>
+          <td><%= link_to "Request Records", users_create_request_path({:user_id => @user.id.to_s, :patient_id => patient.id.to_s}), method: :post %></td>
+          <td></td>
+        </tr>
+      <% end %>
+      <% @patients_requested.each do |patient| %>
+        <tr>
+          <td><%= patient.grantor.username %></td>
+          <td><%= patient.grantor.email %></td>
+          <% if patient.status == 'approved' %>
+            <td><span class="badge badge-success"><%= patient.status.capitalize %></span></td>
+          <% elsif patient.status == 'pending' %>
+            <td><span class="badge badge-info"><%= patient.status.capitalize %></span></td>
+          <% elsif patient.status == 'denied' %>
+            <td><span class="badge badge-danger"><%= patient.status.capitalize %></span></td>
+          <%end%>
+          <% if patient.status == "approved" %>
+            <td><%= link_to "View Documents", users_view_document_path({:user_id => @user.id.to_s, :patient_id => patient.grantor.id.to_s}), method: :get %></td>
+          <% end %>
+          <td></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <% if @user.type == 'patient' %>
+    <h3>Requests Pending for Approval:</h3>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th class="field">Name</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th colspan="1"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @doctors.each do |doctor| %>
+        <tr>
+          <td><%= doctor.username %></td>
+          <td><%= doctor.email %></td>
+          <td><%= link_to "Approve", users_approve_request_path({:user_id => @user.id.to_s, :requestor_id => doctor.id.to_s}), method: :put %></td>
+          <td><%= link_to "Reject", users_deny_request_path({:user_id => @user.id.to_s, :requestor_id => doctor.id.to_s}), method: :put %></td>
+        </tr>
+      <% end %>
+      <% @pharmacists.each do |pharmacist| %>
+        <tr>
+          <td><%= pharmacist.username %></td>
+          <td><%= pharmacist.email %></td>
+          <td><%= link_to "Approve", users_approve_request_path({:user_id => @user.id.to_s, :requestor_id => pharmacist.id.to_s}), method: :put %></td>
+          <td><%= link_to "Reject", users_deny_request_path({:user_id => @user.id.to_s, :requestor_id => pharmacist.id.to_s}), method: :put %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

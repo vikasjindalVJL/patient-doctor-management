@@ -1,0 +1,31 @@
+<div class="container">
+  <% if @error_msg.present? %>
+    <div class="alert alert-danger" role="alert">
+      <%= @error_msg %>
+    </div>
+  <% end %>
+  <% provide(:title, "Log in") %>
+  <div style="margin: 30px 10px;"><h2 style="margin-left: 100px;">Login</h2></div>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <%= form_for(:session, url: login_path) do |f| %>
+
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control', :required => true %>
+        </br>
+
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control', :required => true %>
+        </br>
+
+        <%= f.submit "Log in", class: "btn btn-primary btn-block" %>
+        </br>
+      <% end %>
+      </br>
+      <div align="right">
+      First time here?
+      <%= link_to 'Sign up', signup_path, class: "btn btn-secondary btn-sm", style: "color: #ffffff" %>
+       </div>
+    </div>
+  </div>
+</div>

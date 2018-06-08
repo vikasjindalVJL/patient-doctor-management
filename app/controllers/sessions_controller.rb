@@ -3,7 +3,7 @@ require 'digest/sha1'
 class SessionsController < ApplicationController
 
   skip_before_action :verify_login
-  def new
+  def login
   end
 
   def create

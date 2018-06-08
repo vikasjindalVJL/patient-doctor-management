@@ -21,3 +21,13 @@
 /yarn-error.log
 
 .byebug_history
+
+/.idea/
+*._.DS_Store
+*.DS_Store
+*dump.rdb
+~
+
+# Ignore application configuration
+/config/mongoid.yml
+/config/secrets.yml

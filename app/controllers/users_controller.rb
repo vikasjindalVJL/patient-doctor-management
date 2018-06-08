@@ -35,6 +35,7 @@ class UsersController < ApplicationController
   def view_document
     @user = User.find(params[:id])
     @documents = User.where(id: params[:patient_id]).first.documents
+    @documents = @documents.where(type: "prescription") if @user.type == 'pharmacist'
   end
 
   private

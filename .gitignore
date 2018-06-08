@@ -30,4 +30,3 @@
 
 # Ignore application configuration
 /config/mongoid.yml
-/config/secrets.yml

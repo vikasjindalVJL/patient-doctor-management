@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'sessions#new'
   resources :request_accesses
   resources :documents
   resources :users
@@ -8,7 +9,6 @@ Rails.application.routes.draw do
   match 'users/:id/deny_request' => 'users#deny_request', via: [:patch, :put, :post], as: :users_deny_request
   match 'users/:id/view_document' => 'users#view_document', via: [:get], as: :users_view_document
 
-  root to: 'sessions#new'
   get    'login'   => 'sessions#new', :as => :loginpage
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'

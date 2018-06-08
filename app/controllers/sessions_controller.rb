@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       redirect_to user
     else
       @error_msg = "Invalid username or password"
-      render 'new'
+      render 'login'
     end
   end
 
